@@ -7,7 +7,6 @@
 class winacl {
   exec { 'machinekayacl':
   command   => file('winacl/restore-machinekeys-acl.ps1'),
-  unless    => 'if(((((((get-acl $TargetFolder).access)| select IdentityReference | ft -HideTableHeaders | Out-String).trim()) -replace "\`r\`n", "" ) -replace "              ",",") -ne "Everyone,BUILTIN\Administrators") { exit 1 }',
   provider  => powershell,
 }
 exec { 'rename-guest':
